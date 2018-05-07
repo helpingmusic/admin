@@ -1,0 +1,23 @@
+
+@import "vars";
+
+.menu-label {
+  color: rgba(255,255,255,0.8);
+}
+
+ul.menu-list {
+  li a {
+    border-radius: 8px;
+    color: rgba(255,255,255,0.7) !important;
+    .mat-icon {
+      vertical-align: middle;
+      margin-right: 12px;
+      color: rgba(255,255,255,0.7) !important;
+    }
+
+    &.active,
+    &:hover {
+      background-color: lighten($classicBlue, 10%) !important;
+    }
+  }
+}

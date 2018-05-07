@@ -1,0 +1,64 @@
+
+/**
+Pallete
+ */
+
+// Classic
+$classicOrange: #FF4612;
+$classicBlue: #253645;
+
+
+$copy-black: rgb(0,0,0);
+$copy-dark: rgba(0,0,0,0.9);
+$copy: rgba(0,0,0,0.75);
+$copy-light: rgba(0,0,0,0.5);
+$copy-lighter: rgba(0,0,0,0.4);
+
+//$darkCopy: #231F20;
+//$darkCopy: #263645;
+//$lightCopy: #858585;
+
+
+// Corporate
+$red: #e03c31;
+$white: #fff;
+$black: #000;
+$gray-dark: #97999B;
+$gray-medium: #BBBCBC;
+$gray-light: #D9D9D6;
+
+//$gray-1: #f7f7f7;
+//$gray-2: #e6e6e6;
+//$gray-3: #d5d5d5;
+
+$gray-1: #F8F8F7;
+$gray-2: #E6E6E4;
+$gray-3: $gray-light;
+$gray-4: $gray-medium;
+$gray-5: $gray-dark;
+
+// Accent
+$blue: #00a3e0;
+$purple: #9063cd;
+$orange: #e57200;
+$yellow: #eaaa00;
+$green: #78be20;
+
+// pantone 165c
+$orange2: #FF671F;
+
+//$primary: $red;
+$action: $green;
+$aux: $green;
+$info: $blue;
+$error: #E34F30;
+$danger: $red;
+
+/*
+Sizing
+ */
+$base: 16px;
+
+$h1-size: 2rem;
+$h2-size: 1.5rem;
+$h3-size: 1rem;

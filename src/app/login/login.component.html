@@ -1,0 +1,69 @@
+
+<div class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+
+
+      <img class="login-logo" src="/assets/FilterjoyLogo.png" width="300" />
+
+      <mat-card class="box login-card">
+        <form [formGroup]="loginForm"
+              novalidate
+              action="javascript:void(0)"
+              (submit)="onSubmit(loginForm)">
+          <mat-card-header class="has-text-left">
+            <mat-card-title>
+               ADMIN PANEL
+            </mat-card-title>
+            <mat-card-subtitle>Login</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-form-field>
+              <input matInput
+                     autofocus
+                     (input)="clearServerErrors()"
+                     type="email"
+                     formControlName="email"
+                     placeholder="Email" />
+              <mat-error *ngIf="loginForm.get('email').hasError('required')">
+                This field is required.
+              </mat-error>
+              <mat-error *ngIf="loginForm.get('email').hasError('email')">
+                Not a valid email.
+              </mat-error>
+              <mat-error *ngIf="loginForm.get('email').hasError('server')">
+                {{ loginForm.get('email').getError('server') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput
+                     (input)="clearServerErrors()"
+                     type="password"
+                     formControlName="password"
+                     placeholder="Password" />
+              <mat-error *ngIf="loginForm.get('password').hasError('required')">
+                This field is required.
+              </mat-error>
+            </mat-form-field>
+
+          </mat-card-content>
+          <mat-card-actions class="is-clearfix is-marginless">
+            <div class="is-pulled-right">
+              <button mat-button type="submit"
+                      [ngClass]="{'is-loading': isLoading }"
+                      class="button is-primary">
+                LOGIN
+              </button>
+
+            </div>
+
+          </mat-card-actions>
+        </form>
+
+
+      </mat-card>
+
+    </div>
+  </div>
+</div>

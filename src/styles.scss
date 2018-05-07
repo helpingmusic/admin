@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "vars";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bulma/bulma.sass";
+
+@import "type";
+
+html, body {
+  min-height: 100vh;
+}
+
+.mat-input-container {
+  display: block !important;
+}
+
+.stats-panel {
+  padding: 6px 12px;
+  h5 {
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+  .mat-icon {
+    color: rgba(255,255,255,0.7);
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+  h3 {
+    color: rgba(255,255,255,0.9);
+    font-size: 40px;
+  }
+
+}
+
+.container {
+  padding-bottom: 64px;
+}

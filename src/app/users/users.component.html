@@ -1,0 +1,130 @@
+
+<div class="container is-fluid">
+
+  <div class="columns">
+    <div class="column">
+      <div class="stats-panel box has-background-info is-clearfix">
+        <div class="is-pulled-left">
+          <h5># Members</h5>
+          <mat-icon>people</mat-icon>
+        </div>
+        <div class="is-pulled-right">
+          <h3>{{ stats.total }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="stats-panel box has-background-primary is-clearfix">
+        <div class="is-pulled-left">
+          <h5># Subscriptions</h5>
+          <mat-icon>autorenew</mat-icon>
+        </div>
+        <div class="is-pulled-right">
+          <h3>{{ stats.totalSubscriptions }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="stats-panel box has-background-success is-clearfix">
+        <div class="is-pulled-left">
+          <h5>Active</h5>
+          <mat-icon>play_circle_outline</mat-icon>
+        </div>
+        <div class="is-pulled-right">
+          <h3>{{ stats.active }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="stats-panel box has-background-warning is-clearfix">
+        <div class="is-pulled-left">
+          <h5>Paused</h5>
+          <mat-icon>pause_circle</mat-icon>
+        </div>
+        <div class="is-pulled-right">
+          <h3>{{ stats.paused }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="stats-panel box has-background-danger is-clearfix">
+        <div class="is-pulled-left">
+          <h5>Cancelled</h5>
+          <mat-icon>stop_circle</mat-icon>
+        </div>
+        <div class="is-pulled-right">
+          <h3>{{ stats.cancelled }}</h3>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div>
+    <mat-form-field>
+      <input matInput autocomplete="off" (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="usersData" matSort>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <span *ngFor="let sub of user.Subscriptions">
+          <ng-container [ngSwitch]="sub.status">
+            <mat-icon *ngSwitchCase="'active'"
+                      matTooltip="Active"
+                      matTooltipPosition="right"
+                      class="has-text-success">play_circle_outline</mat-icon>
+
+            <mat-icon *ngSwitchCase="'paused'"
+                      matTooltip="Paused"
+                      matTooltipPosition="right"
+                      class="has-text-grey-light">pause_circle_filled</mat-icon>
+
+            <mat-icon *ngSwitchCase="'failed_1'" matTooltip="Failed 1" class="has-text-error">payment</mat-icon>
+            <mat-icon *ngSwitchCase="'failed_2'" matTooltip="Failed 2" class="has-text-error">payment</mat-icon>
+            <mat-icon *ngSwitchCase="'failed_3'" matTooltip="Failed 3" class="has-text-error">payment</mat-icon>
+
+            <mat-icon *ngSwitchCase="'user_cancelled'" matTooltip="User Cancelled" class="has-text-error">error</mat-icon>
+            <mat-icon *ngSwitchCase="'admin_cancelled'" matTooltip="Admin Cancelled" class="has-text-black">error</mat-icon>
+          </ng-container>
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.name }} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="subCount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header># Subscriptions</mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.Subscriptions.length }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="origin">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Origin</mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.OriginCoupon?.code }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="joinedOn">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Joined On</mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.created_at | date:"mediumDate" }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let user; columns: displayedColumns"
+             class="userRow"
+             [id]="user?._id"
+             (click)="showUser(user)">>
+    </mat-row>
+
+  </mat-table>
+
+</div>

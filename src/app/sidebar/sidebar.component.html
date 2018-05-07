@@ -1,0 +1,13 @@
+<aside class="menu">
+  <p class="menu-label">
+    Navigation
+  </p>
+  <ul class="menu-list">
+    <li *ngFor="let link of menuLinks">
+      <a [routerLink]="link.href" routerLinkActive="active">
+        <mat-icon [innerHTML]="link.icon"></mat-icon>
+        {{ link.title }}
+      </a>
+    </li>
+  </ul>
+</aside>

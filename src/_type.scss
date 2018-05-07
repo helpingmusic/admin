@@ -1,0 +1,101 @@
+
+@import "_vars";
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-100.otf);
+  font-style: normal;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-100Italic.otf);
+  font-style: italic;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-300.otf);
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-300Italic.otf);
+  font-style: italic;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-500.otf);
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-500Italic.otf);
+  font-style: italic;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-600.otf);
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-600Italic.otf);
+  font-style: italic;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-700.otf);
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-700Italic.otf);
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-900.otf);
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url(https://filterjoy.com/fonts/brandon-text/BrandonText-900Italic.otf);
+  font-style: italic;
+  font-weight: 900;
+}
+
+.brandon {
+  font-family: "BrandonText", 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.upper {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  line-height: 1.5em;
+}
+
+* {
+  font-family: "BrandonText", 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}

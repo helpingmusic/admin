@@ -1,0 +1,163 @@
+
+<div class="container is-fluid">
+
+  <div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+
+      <h1>
+        Member
+        <small>{{ (user$ | async)?.name }}</small>
+      </h1>
+
+
+      <h2>Account</h2>
+      <div class="box">
+        <div class="columns">
+          <div class="column">
+            <h5>Name</h5>
+            <p>{{ (user$ | async)?.name }}</p>
+          </div>
+          <div class="column">
+            <h5>Email</h5>
+            <p>
+              <a [href]="'mailto:' + (user$ | async)?.email">{{ (user$ | async)?.email }}</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <h5>ID</h5>
+            <p>{{ (user$ | async)?._id }}</p>
+          </div>
+          <div class="column">
+            <h5>Stripe ID</h5>
+            <p> {{ (user$ | async)?.stripeCustomerId }} </p>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <h5>Joined On</h5>
+            <p>{{ (user$ | async)?.created_at | date:"mediumDate" }}</p>
+          </div>
+          <div class="column">
+            <h5>Role</h5>
+            <p> {{ (user$ | async)?.role }} </p>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <h5>Payment</h5>
+            <p>
+              {{ (user$ | async)?.ActivePaymentSource?.brand }}
+              {{ (user$ | async)?.ActivePaymentSource?.last4 }}
+              <span>
+                Exp:
+                  {{ (user$ | async)?.ActivePaymentSource?.expMonth }} /
+                  {{ (user$ | async)?.ActivePaymentSource?.expYear }}
+              </span>
+            </p>
+          </div>
+          <div class="column">
+            <h5>Origin</h5>
+            <p> {{ (user$ | async)?.OriginCoupon?.code }} </p>
+          </div>
+        </div>
+      </div>
+
+
+      <h2>Subscriptions</h2>
+      <div class="box" *ngFor="let sub of (user$ | async)?.Subscriptions">
+        <div class="columns">
+          <div class="column">
+
+            <h5>Status</h5>
+            <p class="is-capitalized">
+              <ng-container [ngSwitch]="sub.status">
+                <mat-icon *ngSwitchCase="'active'"
+                          matTooltip="Active"
+                          matTooltipPosition="right"
+                          class="has-text-success">play_circle_outline</mat-icon>
+
+                <mat-icon *ngSwitchCase="'paused'"
+                          matTooltip="Paused"
+                          matTooltipPosition="right"
+                          class="has-text-grey-light">pause_circle_filled</mat-icon>
+
+                <mat-icon *ngSwitchCase="'failed_1'" matTooltip="Failed 1" class="has-text-error">payment</mat-icon>
+                <mat-icon *ngSwitchCase="'failed_2'" matTooltip="Failed 2" class="has-text-error">payment</mat-icon>
+                <mat-icon *ngSwitchCase="'failed_3'" matTooltip="Failed 3" class="has-text-error">payment</mat-icon>
+
+                <mat-icon *ngSwitchCase="'user_cancelled'" matTooltip="User Cancelled" class="has-text-error">error</mat-icon>
+                <mat-icon *ngSwitchCase="'admin_cancelled'" matTooltip="Admin Cancelled" class="has-text-black">error</mat-icon>
+              </ng-container>
+              {{ sub.status }}
+            </p>
+          </div>
+          <div class="column">
+            <h5>Address</h5>
+            <p>
+              {{ sub.Address.line1 }} <br />
+              {{ sub.Address.line2 }} <br *ngIf="sub.Address.line2"/>
+              {{ sub.Address.city }},
+              {{ sub.Address.state }}
+              {{ sub.Address.zipCode }}
+            </p>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <h5>Next Shipment</h5>
+            <p>{{ sub.nextShipDate | date:"mediumDate" }}</p>
+          </div>
+          <div class="column">
+            <h5>Frequency</h5>
+            <p>Every {{ sub.frequency }} Month(s)</p>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <h5>Filter Sizes</h5>
+            <p>{{ sub.filterSizes.join(', ') }}</p>
+          </div>
+          <div class="column">
+            <h5>Filter Grade</h5>
+            <p>{{ sub.filterGrade }}</p>
+          </div>
+        </div>
+
+        <div class="columns orders">
+          <div class="column is-12 has-background-grey-lighter">
+
+            <table class="table is-striped is-fullwidth">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Shipped</th>
+                <th>Charge</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let order of sub.Orders; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ order._id }}</td>
+                <td>{{ order.shippedOn | date:"mediumDate" }}</td>
+                <td>${{ order.chargeAmount / 100 }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>

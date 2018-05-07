@@ -1,0 +1,25 @@
+@import '_vars';
+
+.nav-container {
+  background-color: $classicBlue;
+}
+.navbar {
+  border-top: 2px solid $red;
+
+  .navbar-brand {
+    display: block;
+    padding: 12px 0;
+  }
+
+  .navbar-item {
+    font-size: 14px !important;
+    .mat-icon {
+      font-size: 14px !important;
+    }
+  }
+}
+.main {
+  padding-top: 64px;
+  min-height: 100vh;
+  margin: 0 !important;
+}

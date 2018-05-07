@@ -1,0 +1,44 @@
+@import "vars";
+
+h1 {
+  font-size: 24px;
+  margin: 12px auto 24px;
+  small {
+    display: block;
+    font-size: 70%;
+    line-height: 1em;
+    color: $red;
+  }
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+ h5 {
+   //font-weight: bold;
+ }
+ p {
+   color: $copy-lighter;
+ }
+
+ .mat-icon {
+   vertical-align: bottom;
+ }
+ .orders {
+   margin: -20px;
+   display: block;
+   position: relative;
+   border-radius: 4px;
+   overflow: hidden;
+   margin-top: 12px;
+   table {
+     background: none;
+   }
+   .table td, .table th {
+     border-color: #ccc;
+   }
+ }
