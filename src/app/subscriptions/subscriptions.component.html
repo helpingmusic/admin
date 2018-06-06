@@ -1,0 +1,82 @@
+<div class="container is-fluid">
+
+  <div>
+    <mat-form-field>
+      <input matInput autocomplete="off" (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="subsData" matSort>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-cell *matCellDef="let sub">
+        <span>
+          <ng-container [ngSwitch]="sub.status">
+            <mat-icon *ngSwitchCase="'active'"
+                      matTooltip="Active"
+                      matTooltipPosition="right"
+                      class="has-text-success">play_circle_outline</mat-icon>
+
+            <mat-icon *ngSwitchCase="'paused'"
+                      matTooltip="Paused"
+                      matTooltipPosition="right"
+                      class="has-text-grey-light">pause_circle_filled</mat-icon>
+
+            <mat-icon *ngSwitchCase="'failed_1'" matTooltip="Failed 1" class="has-text-warning">payment</mat-icon>
+            <mat-icon *ngSwitchCase="'failed_2'" matTooltip="Failed 2" class="has-text-warning">payment</mat-icon>
+            <mat-icon *ngSwitchCase="'failed_3'" matTooltip="Failed 3" class="has-text-danger">payment</mat-icon>
+            <mat-icon *ngSwitchCase="'failed_payment'" matTooltip="Failed Payment" class="has-text-danger">payment</mat-icon>
+
+            <mat-icon *ngSwitchCase="'user_cancelled'" matTooltip="User Cancelled" class="has-text-danger">error</mat-icon>
+            <mat-icon *ngSwitchCase="'admin_cancelled'" matTooltip="Admin Cancelled" class="has-text-black">error</mat-icon>
+          </ng-container>
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="user">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Member</mat-header-cell>
+      <mat-cell *matCellDef="let sub"> {{ sub.User.name }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="orders">
+      <mat-header-cell *matHeaderCellDef mat-sort-header># Orders</mat-header-cell>
+      <mat-cell *matCellDef="let sub"> {{ sub.Orders?.length }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="frequency">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Frequency</mat-header-cell>
+      <mat-cell *matCellDef="let sub"> {{ sub.frequency }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="filterGrade">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Filter Grade</mat-header-cell>
+      <mat-cell *matCellDef="let sub"> {{ sub.filterGrade }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nextShipDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Next Ship Date</mat-header-cell>
+      <mat-cell *matCellDef="let sub"> {{ sub.nextShipDate | date:"mediumDate" }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="joinedOn">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Joined On</mat-header-cell>
+      <mat-cell *matCellDef="let sub"> {{ sub.created_at | date:"mediumDate" }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+      <mat-cell *matCellDef="let sub"> {{ sub.Address?.line1 }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let sub; columns: displayedColumns"
+             class="subRow"
+             [id]="sub?._id"
+             (click)="showUser(sub.User._id)">>
+    </mat-row>
+
+  </mat-table>
+
+</div>

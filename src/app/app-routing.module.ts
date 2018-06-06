@@ -15,6 +15,7 @@ const routes: Routes = [
       { path: '', redirectTo: '/members', pathMatch: 'full' },
       { path: 'members', loadChildren: 'app/users/users.module#UsersModule' },
       { path: 'dashboard', loadChildren: 'app/dashboard/dashboard.module#DashboardModule' },
+      { path: 'subscriptions', loadChildren: 'app/subscriptions/subscriptions.module#SubscriptionsModule' },
     ]
   },
 ];

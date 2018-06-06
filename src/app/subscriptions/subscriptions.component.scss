@@ -1,0 +1,9 @@
+.mat-icon {
+  vertical-align: middle;
+}
+.subRow {
+  cursor: pointer;
+  &:hover {
+    background: #fafafa;
+  }
+}

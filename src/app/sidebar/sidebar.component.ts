@@ -10,6 +10,7 @@ export class SidebarComponent implements OnInit {
   menuLinks = [
     { href: '/dashboard', title: 'Dashboard', icon: 'dashboard' },
     { href: '/members', title: 'Members', icon: 'people' },
+    { href: '/subscriptions', title: 'Subscriptions', icon: 'loop' },
   ];
 
   constructor() { }
