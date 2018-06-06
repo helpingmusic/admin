@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatToolbarModule,
+  MatCardModule, MatDatepickerModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatNativeDateModule,
+  MatSelectModule,
+  MatSortModule, MatTableModule,
+  MatToolbarModule,
   MatTooltipModule
 } from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -27,6 +30,10 @@ import {RouterModule} from "@angular/router";
     MatIconModule,
     MatTooltipModule,
     MatToolbarModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

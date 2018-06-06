@@ -24,11 +24,12 @@
                       matTooltipPosition="right"
                       class="has-text-grey-light">pause_circle_filled</mat-icon>
 
-            <mat-icon *ngSwitchCase="'failed_1'" matTooltip="Failed 1" class="has-text-error">payment</mat-icon>
-            <mat-icon *ngSwitchCase="'failed_2'" matTooltip="Failed 2" class="has-text-error">payment</mat-icon>
-            <mat-icon *ngSwitchCase="'failed_3'" matTooltip="Failed 3" class="has-text-error">payment</mat-icon>
+            <mat-icon *ngSwitchCase="'failed_1'" matTooltip="Failed 1" class="has-text-warning">payment</mat-icon>
+            <mat-icon *ngSwitchCase="'failed_2'" matTooltip="Failed 2" class="has-text-warning">payment</mat-icon>
+            <mat-icon *ngSwitchCase="'failed_3'" matTooltip="Failed 3" class="has-text-danger">payment</mat-icon>
+            <mat-icon *ngSwitchCase="'failed_payment'" matTooltip="Failed Payment" class="has-text-danger">payment</mat-icon>
 
-            <mat-icon *ngSwitchCase="'user_cancelled'" matTooltip="User Cancelled" class="has-text-error">error</mat-icon>
+            <mat-icon *ngSwitchCase="'user_cancelled'" matTooltip="User Cancelled" class="has-text-danger">error</mat-icon>
             <mat-icon *ngSwitchCase="'admin_cancelled'" matTooltip="Admin Cancelled" class="has-text-black">error</mat-icon>
           </ng-container>
         </span>
