@@ -20,14 +20,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isLoading: boolean;
 
-  stats = {
-    total: 0,
-    totalSubscriptions: 0,
-    active: 0,
-    paused: 0,
-    cancelled: 0,
-  };
-
   constructor(
     private userService: UserService,
     private router: Router,
@@ -37,16 +29,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isLoading = true;
     this.usersSubscription = this.userService.index()
       .do(() => this.isLoading = false)
-      .do(users => {
-        const subs = users.reduce((subs, u) => subs.concat(u.Subscriptions), []);
-        this.stats = {
-          total: users.length,
-          totalSubscriptions: subs.length,
-          active: subs.filter(s => ['active', 'failed_1', 'failed_2', 'failed_3', 'failed_payment'].includes(s.status)).length,
-          paused: subs.filter(s => ['paused'].includes(s.status)).length,
-          cancelled: subs.filter(s => ['user_cancelled', 'admin_cancelled'].includes(s.status)).length,
-        };
-      })
       .subscribe(users => this.usersData.data = users);
   }
   ngAfterViewInit() {

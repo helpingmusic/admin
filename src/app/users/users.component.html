@@ -1,68 +1,6 @@
 
 <div class="container is-fluid">
 
-  <div class="columns">
-    <div class="column">
-      <div class="stats-panel box has-background-info is-clearfix">
-        <div class="is-pulled-left">
-          <h5># Members</h5>
-          <mat-icon>people</mat-icon>
-        </div>
-        <div class="is-pulled-right">
-          <h3>{{ stats.total }}</h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="stats-panel box has-background-primary is-clearfix">
-        <div class="is-pulled-left">
-          <h5># Subscriptions</h5>
-          <mat-icon>autorenew</mat-icon>
-        </div>
-        <div class="is-pulled-right">
-          <h3>{{ stats.totalSubscriptions }}</h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="stats-panel box has-background-success is-clearfix">
-        <div class="is-pulled-left">
-          <h5>Active</h5>
-          <mat-icon>play_circle_outline</mat-icon>
-        </div>
-        <div class="is-pulled-right">
-          <h3>{{ stats.active }}</h3>
-        </div>
-      </div>
-    </div>
-    <div class="column">
-      <div class="stats-panel box has-background-warning is-clearfix">
-        <div class="is-pulled-left">
-          <h5>Paused</h5>
-          <mat-icon>pause_circle</mat-icon>
-        </div>
-        <div class="is-pulled-right">
-          <h3>{{ stats.paused }}</h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="stats-panel box has-background-danger is-clearfix">
-        <div class="is-pulled-left">
-          <h5>Cancelled</h5>
-          <mat-icon>stop_circle</mat-icon>
-        </div>
-        <div class="is-pulled-right">
-          <h3>{{ stats.cancelled }}</h3>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
   <div>
     <mat-form-field>
       <input matInput autocomplete="off" (keyup)="applyFilter($event.target.value)" placeholder="Search">

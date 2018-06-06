@@ -13,11 +13,8 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       { path: '', redirectTo: '/members', pathMatch: 'full' },
-      {
-        path: 'members',
-        canLoad: [AuthGuard],
-        loadChildren: 'app/users/users.module#UsersModule',
-      },
+      { path: 'members', loadChildren: 'app/users/users.module#UsersModule' },
+      { path: 'dashboard', loadChildren: 'app/dashboard/dashboard.module#DashboardModule' },
     ]
   },
 ];

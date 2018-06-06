@@ -8,11 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
 
   menuLinks = [
-    {
-      href: '/members',
-      title: 'Members',
-      icon: 'people',
-    },
+    { href: '/dashboard', title: 'Dashboard', icon: 'dashboard' },
+    { href: '/members', title: 'Members', icon: 'people' },
   ];
 
   constructor() { }
