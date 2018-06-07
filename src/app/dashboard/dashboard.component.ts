@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
 
         const subs = users.reduce((subs, u) => subs.concat(u.Subscriptions), []);
 
-        const joined = subs.filter(s => s.isActive || (s.Orders || []).length > 1);
+        const joined = subs.filter(s => s.status !== 'admin_cancelled');
 
         const active = subs.filter(s => s.isActive);
         const paused = subs.filter(s => s.status === 'paused');
