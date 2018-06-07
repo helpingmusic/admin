@@ -37,11 +37,11 @@ export class DashboardComponent implements OnInit {
         const paused = subs.filter(s => s.status === 'paused');
         const adminCancelled = subs.filter(s => s.status === 'admin_cancelled');
         const userCancelled = subs.filter(s => s.status === 'user_cancelled');
-        const retention = Math.round(active.length / joined.length * 100);
+        const retention = (active.length / joined.length * 100).toFixed(1);
 
         const userJoined = countUsers(joined);
         const userActive = countUsers(active);
-        const userRetention = Math.round(userActive / userJoined * 100);
+        const userRetention = (userActive / userJoined * 100).toFixed(1);
 
         return {
           users: {
