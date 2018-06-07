@@ -21,8 +21,8 @@ import {User} from "../../models/user";
           <td><mat-icon *ngIf="data.user.hasHighFilterGrade" class="has-text-danger">error_outline</mat-icon></td>
         </tr>
         <tr>
-          <td>Used Google promo</td>
-          <td><mat-icon *ngIf="data.user.hasEasyPromo" class="has-text-danger">error_outline</mat-icon></td>
+          <td>Used promo</td>
+          <td><mat-icon *ngIf="data.user.usedPromo" class="has-text-danger">error_outline</mat-icon></td>
         </tr>
         
       </table>
