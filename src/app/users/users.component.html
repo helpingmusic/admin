@@ -9,6 +9,13 @@
 
   <mat-table #table [dataSource]="usersData" matSort>
 
+    <ng-container matColumnDef="flagged">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Flagged</mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <mat-icon *ngIf="user.flagged" class="has-text-danger" (click)="checkFlag(user, $event)">flag</mat-icon>
+      </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
       <mat-cell *matCellDef="let user">
@@ -61,7 +68,8 @@
     <mat-row *matRowDef="let user; columns: displayedColumns"
              class="userRow"
              [id]="user?._id"
-             (click)="showUser(user)">>
+             (click)="showUser(user)">
+      test
     </mat-row>
 
   </mat-table>

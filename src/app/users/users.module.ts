@@ -4,6 +4,7 @@ import { UsersComponent } from './users.component';
 import {RouterModule} from "@angular/router";
 import { UserComponent } from './user/user.component';
 import { EditSubscriptionModalComponent } from './user/edit-subscription-modal.component';
+import { CheckFlagsModalComponent } from './check-flags-modal.component';
 
 @NgModule({
   imports: [
@@ -13,9 +14,10 @@ import { EditSubscriptionModalComponent } from './user/edit-subscription-modal.c
       { path: ':id', component: UserComponent },
     ])
   ],
-  declarations: [UsersComponent, UserComponent, EditSubscriptionModalComponent],
+  declarations: [UsersComponent, UserComponent, EditSubscriptionModalComponent, CheckFlagsModalComponent],
   entryComponents: [
     EditSubscriptionModalComponent,
+    CheckFlagsModalComponent,
   ],
 })
 export class UsersModule { }

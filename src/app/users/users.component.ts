@@ -1,10 +1,11 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
-import {MatSort, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatSort, MatTableDataSource} from "@angular/material";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 
 import {User} from "models/user";
 import {UserService} from "app/core/user.service";
+import {CheckFlagsModalComponent} from "./check-flags-modal.component";
 
 @Component({
   selector: 'fj-users',
@@ -16,13 +17,14 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   usersSubscription: Subscription;
   usersData = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns = ['status', 'name', 'subCount', 'origin', 'joinedOn'];
+  displayedColumns = ['flagged', 'status', 'name', 'subCount', 'origin', 'joinedOn'];
 
   isLoading: boolean;
 
   constructor(
     private userService: UserService,
     private router: Router,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -59,6 +61,16 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showUser(user) {
     this.router.navigate(['/members', user._id]);
+  }
+
+  checkFlag(user, event) {
+    // Don't click whole row
+    if (event) event.stopPropagation();
+
+    const dialogRef = this.dialog.open(CheckFlagsModalComponent, {
+      width: '400px',
+      data: { user },
+    });
   }
 
 }

@@ -25,7 +25,6 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.user$ = this.userService.getById(this.route.snapshot.params.id)
-      .do(console.log)
       .share();
   }
 

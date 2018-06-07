@@ -9,6 +9,35 @@
         <small>{{ (user$ | async)?.name }}</small>
       </h1>
 
+      <ng-container *ngIf="(user$ | async)?.flagged">
+        <h2>Flags</h2>
+        <div class="box">
+          <div class="columns">
+            <div class="column">
+
+              <table class="table">
+                <tr>
+                  <td>Has multiple of same size filter</td>
+                  <td><mat-icon *ngIf="(user$ | async)?.hasMultipleOfSameFilter" class="has-text-danger">error_outline</mat-icon></td>
+                </tr>
+                <tr>
+                  <td>Has unchanged frequency</td>
+                  <td><mat-icon *ngIf="(user$ | async)?.hasUnchangedFrequency" class="has-text-danger">error_outline</mat-icon></td>
+                </tr>
+                <tr>
+                  <td>Has high filter grade</td>
+                  <td><mat-icon *ngIf="(user$ | async)?.hasHighFilterGrade" class="has-text-danger">error_outline</mat-icon></td>
+                </tr>
+                <tr>
+                  <td>Used Google promo</td>
+                  <td><mat-icon *ngIf="(user$ | async)?.hasEasyPromo" class="has-text-danger">error_outline</mat-icon></td>
+                </tr>
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </ng-container>
 
       <h2>Account</h2>
       <div class="box">

@@ -14,11 +14,13 @@ export class UserService {
   ) { }
 
   index(): Observable<Array<User>> {
-    return this.http.get<Array<User>>(this.endpoint);
+    return this.http.get<Array<User>>(this.endpoint)
+      .map(users => users.map(u => new User(u)));
   }
 
   getById(id: string) {
-    return this.http.get<User>(`${this.endpoint}/${id}`);
+    return this.http.get<User>(`${this.endpoint}/${id}`)
+      .map(u => new User(u));
   }
 
   updateSubscription(subId: string, updates: any) {
