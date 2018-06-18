@@ -2,10 +2,36 @@
 /**
 Pallete
  */
+// Pallate
+$green: #00C1B4;
+$blue: #2C3E50;
+$bg-gray: #E6EAEF;
+$red: #ED6571;
+$purple: #5A62B5;
 
-// Classic
-$classicOrange: #FF4612;
-$classicBlue: #253645;
+// Relative
+$primary: $green;
+$secondary: $red;
+$success: $green;
+$error: darken($red, 10%);
+
+$action: $green;
+$aux: $green;
+$error: #E34F30;
+$danger: darken($red, 10%);
+
+$background: $bg-gray;
+
+// bootstrap variables
+$brand-primary: $primary;
+$brand-success: $success;
+$brand-danger: $error;
+
+
+// text
+$title-color: #424242;
+$copy: #424242;
+$copyLight: #9c9c9c;
 
 
 $copy-black: rgb(0,0,0);
@@ -20,7 +46,6 @@ $copy-lighter: rgba(0,0,0,0.4);
 
 
 // Corporate
-$red: #e03c31;
 $white: #fff;
 $black: #000;
 $gray-dark: #97999B;
@@ -37,23 +62,6 @@ $gray-3: $gray-light;
 $gray-4: $gray-medium;
 $gray-5: $gray-dark;
 
-// Accent
-$blue: #00a3e0;
-$purple: #9063cd;
-$orange: #e57200;
-$yellow: #eaaa00;
-$green: #78be20;
-
-// pantone 165c
-$orange2: #FF671F;
-
-//$primary: $red;
-$action: $green;
-$aux: $green;
-$info: $blue;
-$error: #E34F30;
-$danger: $red;
-
 /*
 Sizing
  */
@@ -62,3 +70,7 @@ $base: 16px;
 $h1-size: 2rem;
 $h2-size: 1.5rem;
 $h3-size: 1rem;
+
+$heading-font-family: 'Reem Kufi', sans-serif;
+$content-font-family: 'Muli', sans-serif;
+

@@ -9,57 +9,57 @@
 
   <mat-table #table [dataSource]="usersData" matSort>
 
-    <ng-container matColumnDef="flagged">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Flagged</mat-header-cell>
-      <mat-cell *matCellDef="let user">
-        <mat-icon *ngIf="user.flagged" class="has-text-danger" (click)="checkFlag(user, $event)">flag</mat-icon>
-      </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
       <mat-cell *matCellDef="let user">
-        <span *ngFor="let sub of user.Subscriptions">
-          <ng-container [ngSwitch]="sub.status">
-            <mat-icon *ngSwitchCase="'active'"
-                      matTooltip="Active"
-                      matTooltipPosition="right"
-                      class="has-text-success">play_circle_outline</mat-icon>
+        <ng-container [ngSwitch]="user.stripe?.status">
+          <mat-icon *ngSwitchCase="'trialing'"
+                    matTooltip="Trialing"
+                    matTooltipPosition="right"
+                    class="has-text-info">alarm</mat-icon>
 
-            <mat-icon *ngSwitchCase="'paused'"
-                      matTooltip="Paused"
-                      matTooltipPosition="right"
-                      class="has-text-grey-light">pause_circle_filled</mat-icon>
+          <mat-icon *ngSwitchCase="'active'"
+                    matTooltip="Active"
+                    matTooltipPosition="right"
+                    class="has-text-success">play_circle_outline</mat-icon>
 
-            <mat-icon *ngSwitchCase="'failed_1'" matTooltip="Failed 1" class="has-text-warning">payment</mat-icon>
-            <mat-icon *ngSwitchCase="'failed_2'" matTooltip="Failed 2" class="has-text-warning">payment</mat-icon>
-            <mat-icon *ngSwitchCase="'failed_3'" matTooltip="Failed 3" class="has-text-danger">payment</mat-icon>
-            <mat-icon *ngSwitchCase="'failed_payment'" matTooltip="Failed Payment" class="has-text-danger">payment</mat-icon>
+          <mat-icon *ngSwitchCase="'past_due'" matTooltip="Past Due" class="has-text-warning">payment</mat-icon>
+          <mat-icon *ngSwitchCase="'unpaid'" matTooltip="Unpaid" class="has-text-danger">payment</mat-icon>
 
-            <mat-icon *ngSwitchCase="'user_cancelled'" matTooltip="User Cancelled" class="has-text-danger">error</mat-icon>
-            <mat-icon *ngSwitchCase="'admin_cancelled'" matTooltip="Admin Cancelled" class="has-text-black">error</mat-icon>
-          </ng-container>
-        </span>
+          <mat-icon *ngSwitchCase="'cancelled'" matTooltip="Cancelled" class="has-text-danger">error</mat-icon>
+        </ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="profileComplete">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Profile</mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <mat-icon *ngIf="!user.profileComplete" class="has-text-warning" (click)="checkProfile(user, $event)">warning</mat-icon>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-      <mat-cell *matCellDef="let user"> {{ user.name }} </mat-cell>
+      <mat-cell *matCellDef="let user"> {{ user.first_name }} {{ user.last_name }} </mat-cell>
     </ng-container>
 
 
-    <ng-container matColumnDef="subCount">
-      <mat-header-cell *matHeaderCellDef mat-sort-header># Subscriptions</mat-header-cell>
-      <mat-cell *matCellDef="let user"> {{ user.Subscriptions.length }} </mat-cell>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="origin">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Origin</mat-header-cell>
-      <mat-cell *matCellDef="let user"> {{ user.OriginCoupon?.code }} </mat-cell>
+    <ng-container matColumnDef="tier">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Subscription</mat-header-cell>
+      <mat-cell *matCellDef="let user" class="is-capitalized"> {{ user.stripe?.tier }} ({{ user.stripe?.frequency }}) </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="joinedOn">
+    <ng-container matColumnDef="active_until">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Next Billing</mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.active_until | date:"mediumDate" }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Joined On</mat-header-cell>
       <mat-cell *matCellDef="let user"> {{ user.created_at | date:"mediumDate" }} </mat-cell>
     </ng-container>

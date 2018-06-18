@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('fj-admin App', () => {
+describe('home-admin App', () => {
   let page: AppPage;
 
   beforeEach(() => {

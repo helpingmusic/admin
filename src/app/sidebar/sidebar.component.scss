@@ -17,7 +17,7 @@ ul.menu-list {
 
     &.active,
     &:hover {
-      background-color: lighten($classicBlue, 10%) !important;
+      background-color: lighten($blue, 10%) !important;
     }
   }
 }

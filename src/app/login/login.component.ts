@@ -4,7 +4,7 @@ import {AuthService} from "../core/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'fj-login',
+  selector: 'home-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })

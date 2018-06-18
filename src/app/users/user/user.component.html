@@ -2,55 +2,34 @@
 <div class="container is-fluid">
 
   <div class="columns">
-    <div class="column is-half is-offset-one-quarter">
+    <div class="column is-skinny">
 
       <h1>
         Member
         <small>{{ (user$ | async)?.name }}</small>
       </h1>
 
-      <ng-container *ngIf="(user$ | async)?.flagged">
-        <h2>Flags</h2>
-        <div class="box">
-          <div class="columns">
-            <div class="column">
-
-              <table class="table">
-                <tr>
-                  <td>Has multiple of same size filter</td>
-                  <td><mat-icon *ngIf="(user$ | async)?.hasMultipleOfSameFilter" class="has-text-danger">error_outline</mat-icon></td>
-                </tr>
-                <tr>
-                  <td>Has unchanged frequency</td>
-                  <td><mat-icon *ngIf="(user$ | async)?.hasUnchangedFrequency" class="has-text-danger">error_outline</mat-icon></td>
-                </tr>
-                <tr>
-                  <td>Has high filter grade</td>
-                  <td><mat-icon *ngIf="(user$ | async)?.hasHighFilterGrade" class="has-text-danger">error_outline</mat-icon></td>
-                </tr>
-                <tr>
-                  <td>Used promo</td>
-                  <td><mat-icon *ngIf="(user$ | async)?.usedPromo" class="has-text-danger">error_outline</mat-icon></td>
-                </tr>
-
-              </table>
-            </div>
-          </div>
-        </div>
-      </ng-container>
 
       <h2>Account</h2>
       <div class="box">
-        <div class="columns">
-          <div class="column">
+        <div class="columns is-multiline">
+          <div class="column is-6-desktop is-12-tablet">
+            <img [src]="(user$ | async)?.profile_pic || 'https://my.evolvemusic.org/assets/images/avatar.png'">
+          </div>
+          <div class="column is-6-desktop is-12-tablet separate-blocks">
             <h5>Name</h5>
             <p>{{ (user$ | async)?.name }}</p>
-          </div>
-          <div class="column">
+
             <h5>Email</h5>
             <p>
               <a [href]="'mailto:' + (user$ | async)?.email">{{ (user$ | async)?.email }}</a>
             </p>
+
+            <h5>Phone Number </h5>
+            <p> {{ (user$ | async)?.phone_number || 'None' }} </p>
+
+            <h5>Role</h5>
+            <p> {{ (user$ | async)?.role }} </p>
           </div>
         </div>
 
@@ -61,7 +40,7 @@
           </div>
           <div class="column">
             <h5>Stripe ID</h5>
-            <p> {{ (user$ | async)?.stripeCustomerId }} </p>
+            <p> {{ (user$ | async)?.stripe?.customerId }} </p>
           </div>
         </div>
 
@@ -71,8 +50,81 @@
             <p>{{ (user$ | async)?.created_at | date:"mediumDate" }}</p>
           </div>
           <div class="column">
-            <h5>Role</h5>
-            <p> {{ (user$ | async)?.role }} </p>
+            <h5>Last Active</h5>
+            <p>{{ (user$ | async)?.last_active | date:"mediumDate" }}</p>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <h5>Referred By</h5>
+            <p> {{ (user$ | async)?.referredBy }} </p>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <a target="_blank" class="is-pulled-right button is-primary" [href]="'https://my.evolvemusic.org/app/member/' + (user$ | async)?._id">
+              Go To Profile
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <h2>Subscription</h2>
+      <div class="box">
+        <div class="columns">
+
+          <div class="column">
+            <h5>Status</h5>
+            <p>
+              <ng-container [ngSwitch]="(user$ | async)?.stripe?.status">
+                <div  *ngSwitchCase="'trialing'">
+                  <mat-icon matTooltip="Trialing"
+                            matTooltipPosition="right"
+                            class="has-text-info">alarm</mat-icon>
+                  Trialing
+                </div>
+
+                <div  *ngSwitchCase="'active'">
+                  <mat-icon matTooltip="Active"
+                    matTooltipPosition="right"
+                    class="has-text-success">play_circle_outline</mat-icon>
+                  Active
+                </div>
+
+                <div *ngSwitchCase="'past_due'" >
+                    <mat-icon matTooltip="Past Due" class="has-text-warning">payment</mat-icon>
+                  Past Due
+                </div>
+                <div *ngSwitchCase="'unpaid'" >
+                    <mat-icon matTooltip="Unpaid" class="has-text-danger">payment</mat-icon>
+                  Unpaid
+                </div>
+
+                <div *ngSwitchCase="'cancelled'" >
+                    <mat-icon matTooltip="Cancelled" class="has-text-danger">error</mat-icon>
+                  Cancelled
+                </div>
+              </ng-container>
+            </p>
+
+          </div>
+
+          <div class="column">
+            <h5>Plan</h5>
+            <p class="is-capitalized"> {{ (user$ | async)?.stripe?.tier }} ({{ (user$ | async)?.stripe?.frequency }}) </p>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <h5>Next Billing</h5>
+            <p> {{ (user$ | async)?.active_until | date:'mediumDate' }} </p>
+          </div>
+          <div class="column">
+            <h5>Account Balance</h5>
+            <p>${{ ((user$ | async)?.stripe?.accountBalance || 0) / 100 }} </p>
           </div>
         </div>
 
@@ -80,121 +132,19 @@
           <div class="column">
             <h5>Payment</h5>
             <p>
-              {{ (user$ | async)?.ActivePaymentSource?.brand }}
-              {{ (user$ | async)?.ActivePaymentSource?.last4 }}
+              {{ (user$ | async)?.stripe?.card?.brand }}
+              {{ (user$ | async)?.stripe?.card?.last4 }}
               <span>
                 Exp:
-                  {{ (user$ | async)?.ActivePaymentSource?.expMonth }} /
-                  {{ (user$ | async)?.ActivePaymentSource?.expYear }}
+                  {{ (user$ | async)?.stripe?.card?.expMonth }} /
+                  {{ (user$ | async)?.stripe?.card?.expYear }}
               </span>
             </p>
           </div>
-          <div class="column">
-            <h5>Origin</h5>
-            <p> {{ (user$ | async)?.OriginCoupon?.code }} </p>
-          </div>
+
         </div>
+
       </div>
-
-
-      <h2>Subscriptions</h2>
-      <div class="box" *ngFor="let sub of (user$ | async)?.Subscriptions">
-        <div class="columns">
-          <div class="column">
-
-            <h5>Status</h5>
-            <p class="is-capitalized">
-              <ng-container [ngSwitch]="sub.status">
-                <mat-icon *ngSwitchCase="'active'"
-                          matTooltip="Active"
-                          matTooltipPosition="right"
-                          class="has-text-success">play_circle_outline</mat-icon>
-
-                <mat-icon *ngSwitchCase="'paused'"
-                          matTooltip="Paused"
-                          matTooltipPosition="right"
-                          class="has-text-grey-light">pause_circle_filled</mat-icon>
-
-                <mat-icon *ngSwitchCase="'failed_1'" matTooltip="Failed 1" class="has-text-warning">payment</mat-icon>
-                <mat-icon *ngSwitchCase="'failed_2'" matTooltip="Failed 2" class="has-text-warning">payment</mat-icon>
-                <mat-icon *ngSwitchCase="'failed_3'" matTooltip="Failed 3" class="has-text-danger">payment</mat-icon>
-                <mat-icon *ngSwitchCase="'failed_payment'" matTooltip="Failed Payment" class="has-text-danger">payment</mat-icon>
-
-                <mat-icon *ngSwitchCase="'user_cancelled'" matTooltip="User Cancelled" class="has-text-danger">error</mat-icon>
-                <mat-icon *ngSwitchCase="'admin_cancelled'" matTooltip="Admin Cancelled" class="has-text-black">error</mat-icon>
-              </ng-container>
-              {{ sub.status }}
-            </p>
-          </div>
-          <div class="column">
-            <h5>Address</h5>
-            <p>
-              {{ sub.Address.line1 }} <br />
-              {{ sub.Address.line2 }} <br *ngIf="sub.Address.line2"/>
-              {{ sub.Address.city }},
-              {{ sub.Address.state }}
-              {{ sub.Address.zipCode }}
-            </p>
-          </div>
-        </div>
-
-        <div class="columns">
-          <div class="column">
-            <h5>Next Shipment</h5>
-            <p>{{ sub.nextShipDate | date:"mediumDate" }}</p>
-          </div>
-          <div class="column">
-            <h5>Frequency</h5>
-            <p>Every {{ sub.frequency }} Month(s)</p>
-          </div>
-        </div>
-
-        <div class="columns">
-          <div class="column">
-            <h5>Filter Sizes</h5>
-            <p>{{ sub.filterSizes.join(', ') }}</p>
-          </div>
-          <div class="column">
-            <h5>Filter Grade</h5>
-            <p>{{ sub.filterGrade }}</p>
-          </div>
-        </div>
-
-        <div class="has-text-right">
-
-            <button class=" button is-primary" (click)="editSubscription(sub)">
-              <mat-icon>edit</mat-icon>
-              Edit
-            </button>
-
-        </div>
-
-        <div class="columns orders">
-          <div class="column is-12 has-background-grey-lighter">
-
-            <table class="table is-striped is-fullwidth">
-              <thead>
-              <tr>
-                <th>#</th>
-                <th>ID</th>
-                <th>Shipped</th>
-                <th>Charge</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let order of sub.Orders; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ order._id }}</td>
-                <td>{{ order.shippedOn | date:"mediumDate" }}</td>
-                <td>${{ order.chargeAmount / 100 }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-      </div>
-
 
     </div>
   </div>

@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from "environments/environment";
 
 @Component({
-  selector: 'fj-main',
+  selector: 'home-main',
   template: `
     <mat-toolbar class="navbar is-fixed-top mat-elevation-z3">
 
       <div class="navbar-brand">
-        <img src="/assets/FilterjoyLogo.png" width="200"/>
+        <img src="/assets/icon.png" width="46"/>
       </div>
       <div class="navbar-end">
 
         <a class="navbar-item" [href]="fjLink">
-          Filterjoy.com
+          HOME App
           <mat-icon>call_made</mat-icon>
         </a>
 
@@ -25,7 +25,7 @@ import { environment } from "environments/environment";
     <div class="columns has-background-light main">
 
       <div class="column is-narrow nav-container" style="width: 240px">
-        <fj-sidebar class="column"></fj-sidebar>
+        <home-sidebar class="column"></home-sidebar>
       </div>
 
 

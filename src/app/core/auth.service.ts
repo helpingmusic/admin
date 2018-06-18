@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 
 import * as store from 'store';
@@ -11,10 +10,10 @@ export class AuthService {
   admin: any;
 
   get userToken() {
-    return store.get('fj>userToken');
+    return store.get('home>userToken');
   }
   set userToken(t: string) {
-    store.set('fj>userToken', t);
+    store.set('home>userToken', t);
   }
 
   constructor(

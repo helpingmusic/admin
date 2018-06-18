@@ -1,52 +1,89 @@
 import {Doc} from "./doc";
-import {Subscription} from "./subscription";
-import {Coupon} from "./coupon";
+
+class NotifiableMedium {
+  browser: boolean;
+  email: boolean;
+}
 
 export class User extends Doc {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   name: string;
-  Subscriptions: Array<Subscription>;
-  OriginCoupon: Coupon;
-
-  role: string;
   email: string;
-  stripeCustomerId: string;
+  emailConfirmed: boolean;
+  role: string;
+  hasPassword: boolean;
+  provider: string;
+  phone_number: string;
 
+  membership_types: Array<string> = [];
+  profession: string;
+  bio: string;
 
-  get hasMultipleOfSameFilter() {
-    return this.Subscriptions.some(s => {
-      const filterSet = Array.from(new Set(s.filterSizes));
-      return filterSet.length !== s.filterSizes.length;
-    });
-  }
-  get hasHighFilterGrade() {
-    return this.Subscriptions.some(s => s.filterGrade === 'c');
-  }
-  get hasUnchangedFrequency() {
-    return this.Subscriptions.some(s => s.frequency === 2);
-  }
-  get hasEasyPromo() {
-    return this.OriginCoupon && this.OriginCoupon.code === 'google';
-  }
-  get usedPromo() {
-    return this.OriginCoupon && this.OriginCoupon.code;
-  }
+  profile_pic: string;
+  banner = '';
+  personal_links: any = {};
 
-  get flagged() {
-    const flagThreshold = 20;
-    let flagPoints = 0;
-    if (this.hasHighFilterGrade) flagPoints += 5;
-    if (this.hasUnchangedFrequency) flagPoints += 5;
-    if (this.hasMultipleOfSameFilter) flagPoints += 15;
-    if (this.usedPromo) flagPoints += 10;
+  referredBy: string;
 
-    return flagPoints >= flagThreshold;
-  }
+  instruments: Array<string> = [];
+  genres: Array<string> = [];
+  skills: Array<string> = [];
+  resources: Array<string> = [];
 
-  constructor(body: any) {
-    super();
-    Object.assign(this, body);
-  }
+  city: string;
+  state: string;
+
+  stripe: {
+    subscriptionId: string;
+    customerId: string;
+    accountBalance: number;
+    plan: string;
+    name: string;
+    frequency: string;
+    tier: string;
+    trial_end: string;
+    couponUsed: string;
+    couponEnd: Date;
+    status: string;
+    card: {
+      id: string,
+      last4: string,
+      brand: string,
+      expMonth: number,
+      expYear: number,
+    }
+  };
+  plan: string;
+  // Stripe customer representation
+  customer: any;
+
+  applyToPA: boolean;
+
+  active_until: string;
+  isActive: boolean;
+  profileComplete: boolean;
+  referralCode: string;
+
+  last_active: Date;
+
+  pushSubscriptions: [{
+    _id: string;
+    endpoint: string;
+    keys: {
+      p256dh: string;
+      auth: string;
+    }
+  }];
+
+  notifications: {
+    account: NotifiableMedium;
+    application: NotifiableMedium;
+    discount: NotifiableMedium;
+    event: NotifiableMedium;
+    post: NotifiableMedium;
+    announcement: NotifiableMedium;
+    review: NotifiableMedium;
+  };
 
 }

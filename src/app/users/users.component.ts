@@ -5,10 +5,10 @@ import {Subscription} from "rxjs/Subscription";
 
 import {User} from "models/user";
 import {UserService} from "app/core/user.service";
-import {CheckFlagsModalComponent} from "./check-flags-modal.component";
+import {CheckUserProfileComponent} from "./check-user-profile.component";
 
 @Component({
-  selector: 'fj-users',
+  selector: 'home-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   usersSubscription: Subscription;
   usersData = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns = ['flagged', 'status', 'name', 'subCount', 'origin', 'joinedOn'];
+  displayedColumns = ['status', 'profileComplete', 'name', 'email', 'tier', 'active_until', 'created_at'];
 
   isLoading: boolean;
 
@@ -33,13 +33,14 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
       .do(() => this.isLoading = false)
       .subscribe(users => this.usersData.data = users);
   }
+
   ngAfterViewInit() {
     // for sorting embedded props
     this.usersData.sortingDataAccessor = (user: User, property: string) => {
       switch(property) {
-        case 'joinedOn': return user.created_at;
-        case 'subCount': return user.Subscriptions.length;
-        case 'origin': return user.OriginCoupon && user.OriginCoupon.code;
+        case 'tier': return user.stripe && user.stripe.tier;
+        case 'status': return user.stripe && user.stripe.status;
+        case 'name': return `${user.first_name} ${user.last_name}`;
         default: return user[property];
       }
     };
@@ -63,11 +64,11 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate(['/members', user._id]);
   }
 
-  checkFlag(user, event) {
+  checkProfile(user, event) {
     // Don't click whole row
     if (event) event.stopPropagation();
 
-    const dialogRef = this.dialog.open(CheckFlagsModalComponent, {
+    const dialogRef = this.dialog.open(CheckUserProfileComponent, {
       width: '400px',
       data: { user },
     });

@@ -3,8 +3,7 @@ import { SharedModule } from "app/shared/shared.module";
 import { UsersComponent } from './users.component';
 import {RouterModule} from "@angular/router";
 import { UserComponent } from './user/user.component';
-import { EditSubscriptionModalComponent } from './user/edit-subscription-modal.component';
-import { CheckFlagsModalComponent } from './check-flags-modal.component';
+import { CheckUserProfileComponent } from './check-user-profile.component';
 
 @NgModule({
   imports: [
@@ -14,10 +13,9 @@ import { CheckFlagsModalComponent } from './check-flags-modal.component';
       { path: ':id', component: UserComponent },
     ])
   ],
-  declarations: [UsersComponent, UserComponent, EditSubscriptionModalComponent, CheckFlagsModalComponent],
+  declarations: [UsersComponent, UserComponent, CheckUserProfileComponent],
   entryComponents: [
-    EditSubscriptionModalComponent,
-    CheckFlagsModalComponent,
+    CheckUserProfileComponent
   ],
 })
 export class UsersModule { }

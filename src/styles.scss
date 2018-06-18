@@ -43,3 +43,10 @@ table {
 .container {
   padding-bottom: 64px;
 }
+
+.is-skinny {
+  max-width: 100%;
+  width: 600px !important;
+  flex: 0.7 0;
+  margin: 0 auto;
+}
