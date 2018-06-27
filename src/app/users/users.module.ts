@@ -4,6 +4,7 @@ import { UsersComponent } from './users.component';
 import {RouterModule} from "@angular/router";
 import { UserComponent } from './user/user.component';
 import { CheckUserProfileComponent } from './check-user-profile.component';
+import { SetCreditsModalComponent } from './user/set-credits-modal.component';
 
 @NgModule({
   imports: [
@@ -13,9 +14,10 @@ import { CheckUserProfileComponent } from './check-user-profile.component';
       { path: ':id', component: UserComponent },
     ])
   ],
-  declarations: [UsersComponent, UserComponent, CheckUserProfileComponent],
+  declarations: [UsersComponent, UserComponent, CheckUserProfileComponent, SetCreditsModalComponent],
   entryComponents: [
-    CheckUserProfileComponent
+    CheckUserProfileComponent,
+    SetCreditsModalComponent,
   ],
 })
 export class UsersModule { }

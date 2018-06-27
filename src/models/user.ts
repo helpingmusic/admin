@@ -34,6 +34,7 @@ export class User extends Doc {
   city: string;
   state: string;
 
+  credits: number;
   stripe: {
     subscriptionId: string;
     customerId: string;

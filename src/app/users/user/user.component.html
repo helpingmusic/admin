@@ -1,12 +1,12 @@
 
-<div class="container is-fluid">
+<div class="container is-fluid" *ngIf="user$ | async; let user">
 
   <div class="columns">
     <div class="column is-skinny">
 
       <h1>
         Member
-        <small>{{ (user$ | async)?.name }}</small>
+        <small>{{ user.name }}</small>
       </h1>
 
 
@@ -14,56 +14,56 @@
       <div class="box">
         <div class="columns is-multiline">
           <div class="column is-6-desktop is-12-tablet">
-            <img [src]="(user$ | async)?.profile_pic || 'https://my.evolvemusic.org/assets/images/avatar.png'">
+            <img [src]="user.profile_pic || 'https://my.evolvemusic.org/assets/images/avatar.png'">
           </div>
           <div class="column is-6-desktop is-12-tablet separate-blocks">
             <h5>Name</h5>
-            <p>{{ (user$ | async)?.name }}</p>
+            <p>{{ user.name }}</p>
 
             <h5>Email</h5>
             <p>
-              <a [href]="'mailto:' + (user$ | async)?.email">{{ (user$ | async)?.email }}</a>
+              <a [href]="'mailto:' + user.email">{{ user.email }}</a>
             </p>
 
             <h5>Phone Number </h5>
-            <p> {{ (user$ | async)?.phone_number || 'None' }} </p>
+            <p> {{ user.phone_number || 'None' }} </p>
 
             <h5>Role</h5>
-            <p> {{ (user$ | async)?.role }} </p>
+            <p> {{ user.role }} </p>
           </div>
         </div>
 
         <div class="columns">
           <div class="column">
             <h5>ID</h5>
-            <p>{{ (user$ | async)?._id }}</p>
+            <p>{{ user._id }}</p>
           </div>
           <div class="column">
             <h5>Stripe ID</h5>
-            <p> {{ (user$ | async)?.stripe?.customerId }} </p>
+            <p> {{ user.stripe?.customerId }} </p>
           </div>
         </div>
 
         <div class="columns">
           <div class="column">
             <h5>Joined On</h5>
-            <p>{{ (user$ | async)?.created_at | date:"mediumDate" }}</p>
+            <p>{{ user.created_at | date:"mediumDate" }}</p>
           </div>
           <div class="column">
             <h5>Last Active</h5>
-            <p>{{ (user$ | async)?.last_active | date:"mediumDate" }}</p>
+            <p>{{ user.last_active | date:"mediumDate" }}</p>
           </div>
         </div>
 
         <div class="columns">
           <div class="column">
             <h5>Referred By</h5>
-            <p> {{ (user$ | async)?.referredBy }} </p>
+            <p> {{ user.referredBy }} </p>
           </div>
         </div>
         <div class="columns">
           <div class="column">
-            <a target="_blank" class="is-pulled-right button is-primary" [href]="'https://my.evolvemusic.org/app/member/' + (user$ | async)?._id">
+            <a target="_blank" class="is-pulled-right button is-primary" [href]="'https://my.evolvemusic.org/app/member/' + user._id">
               Go To Profile
             </a>
           </div>
@@ -78,7 +78,7 @@
           <div class="column">
             <h5>Status</h5>
             <p>
-              <ng-container [ngSwitch]="(user$ | async)?.stripe?.status">
+              <ng-container [ngSwitch]="user.stripe?.status">
                 <div  *ngSwitchCase="'trialing'">
                   <mat-icon matTooltip="Trialing"
                             matTooltipPosition="right"
@@ -113,18 +113,18 @@
 
           <div class="column">
             <h5>Plan</h5>
-            <p class="is-capitalized"> {{ (user$ | async)?.stripe?.tier }} ({{ (user$ | async)?.stripe?.frequency }}) </p>
+            <p class="is-capitalized"> {{ user.stripe?.tier }} ({{ user.stripe?.frequency }}) </p>
           </div>
         </div>
 
         <div class="columns">
           <div class="column">
             <h5>Next Billing</h5>
-            <p> {{ (user$ | async)?.active_until | date:'mediumDate' }} </p>
+            <p> {{ user.active_until | date:'mediumDate' }} </p>
           </div>
           <div class="column">
             <h5>Account Balance</h5>
-            <p>${{ ((user$ | async)?.stripe?.accountBalance || 0) / 100 }} </p>
+            <p>${{ (user.stripe?.accountBalance || 0) / 100 }} </p>
           </div>
         </div>
 
@@ -132,18 +132,57 @@
           <div class="column">
             <h5>Payment</h5>
             <p>
-              {{ (user$ | async)?.stripe?.card?.brand }}
-              {{ (user$ | async)?.stripe?.card?.last4 }}
+              {{ user.stripe?.card?.brand }}
+              {{ user.stripe?.card?.last4 }}
               <span>
                 Exp:
-                  {{ (user$ | async)?.stripe?.card?.expMonth }} /
-                  {{ (user$ | async)?.stripe?.card?.expYear }}
+                  {{ user.stripe?.card?.expMonth }} /
+                  {{ user.stripe?.card?.expYear }}
               </span>
             </p>
           </div>
 
         </div>
 
+      </div>
+
+
+      <h2>Member Credits</h2>
+      <div class="box">
+        <div class="columns">
+          <div class="column">
+            <h4>Current Balance</h4>
+            <p>${{ user.credits }}</p>
+          </div>
+          <div class="column">
+            <button mat-button class="button is-info is-pulled-right" (click)="setUserCredits(user)">
+              Set User Credits
+            </button>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <h4>Transactions</h4>
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Date</th>
+                <th>Start Balance</th>
+                <th>End Balance</th>
+                <th>Type</th>
+                <th>Notes</th>
+              </tr>
+              </thead>
+              <tr *ngFor="let ct of creditTransactions$ | async">
+                <td>{{ ct.created_at | date:"mediumDate" }}</td>
+                <td>${{ct.startAmount}}</td>
+                <td>${{ct.endAmount}}</td>
+                <td>{{ ct.type }}</td>
+                <td>{{ ct.meta?.notes }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
 
     </div>

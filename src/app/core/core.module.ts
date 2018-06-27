@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./auth.interceptor";
 import {UserService} from "./user.service";
+import {CreditService} from "./credit.service";
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import {UserService} from "./user.service";
   providers: [
     AuthService,
     UserService,
+    CreditService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ]
 })
