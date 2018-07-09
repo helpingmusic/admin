@@ -81,7 +81,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
       .map((u: User) => ({
         'Name': `${u.first_name || ''} ${u.last_name || ''}`,
         'Email': u.email,
-        'Phone Number': u.phone_number || '',
+        'Phone Number': u.phoneNumber || '',
         'Plan': u.stripe && `${u.stripe.tier || ''} (${u.stripe.frequency || ''})`,
         'Status': u.stripe && u.stripe.status,
         'Is Active': u.isActive ? 'yes' : 'no',

@@ -14,7 +14,7 @@ export class User extends Doc {
   role: string;
   hasPassword: boolean;
   provider: string;
-  phone_number: string;
+  phoneNumber: string;
 
   membership_types: Array<string> = [];
   profession: string;
