@@ -154,12 +154,49 @@
             <h4>Current Balance</h4>
             <p>${{ user.credits }}</p>
           </div>
-          <div class="column">
-            <button mat-button class="button is-info is-pulled-right" (click)="setUserCredits(user)">
-              Set User Credits
-            </button>
+          <div class="column columns">
+            <div class="column is-narrow">
+
+              <button mat-button class="button is-info is-pulled-right" (click)="setUserCredits(user)">
+                Set User Credits
+              </button>
+            </div>
+            <div class="column is-narrow">
+
+              <button mat-button class="button is-success is-pulled-right" (click)="createAllowance(user._id)">
+                Create Allowance
+              </button>
+            </div>
+
+
           </div>
         </div>
+
+        <div class="columns">
+          <div class="column">
+            <h4>Upcoming Allowance</h4>
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tr *ngFor="let at of (allowanceTransactions$ | async) | slice:0:allowancePreview">
+                <td>{{ at.runOn | date:"mediumDate" }}</td>
+                <td>${{ at.amount }}</td>
+                <td class="has-text-right">
+                  <a (click)="editAllowance(at)">
+                    <mat-icon>edit</mat-icon>
+                  </a>
+                </td>
+              </tr>
+            </table>
+            <a *ngIf="(allowanceTransactions$ | async)?.length > allowancePreview" (click)="allowancePreview = Infinity">Show all...</a>
+          </div>
+        </div>
+
         <div class="columns">
           <div class="column">
             <h4>Transactions</h4>
@@ -173,7 +210,7 @@
                 <th>Notes</th>
               </tr>
               </thead>
-              <tr *ngFor="let ct of creditTransactions$ | async">
+              <tr *ngFor="let ct of (creditTransactions$ | async) | slice:0:creditTransactionPreview">
                 <td>{{ ct.created_at | date:"mediumDate" }}</td>
                 <td>${{ct.startAmount}}</td>
                 <td>${{ct.endAmount}}</td>
@@ -181,6 +218,7 @@
                 <td>{{ ct.meta?.notes }}</td>
               </tr>
             </table>
+            <a *ngIf="(creditTransactions$ | async)?.length > creditTransactionPreview" (click)="creditTransactionPreview = Infinity">Show all...</a>
           </div>
         </div>
       </div>

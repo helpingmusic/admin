@@ -7,3 +7,11 @@ export class CreditTransaction extends Doc {
   type: string;
   meta: Object;
 }
+
+
+export class AllowanceTransaction extends Doc {
+  user: string;
+  amount: number;
+  runOn: string;
+  status: string;
+}

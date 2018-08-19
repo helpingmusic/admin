@@ -83,5 +83,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/pluck';
 
 import 'rxjs/add/observable/of';

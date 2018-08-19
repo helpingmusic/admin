@@ -39,6 +39,9 @@ table {
   }
 
 }
+a {
+  color: lighten($info, 2%);
+}
 
 .container {
   padding-bottom: 64px;
