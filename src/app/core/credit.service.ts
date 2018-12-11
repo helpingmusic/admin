@@ -10,19 +10,19 @@ export class CreditService {
   ) { }
 
   getForUser(userId: string) {
-    return this.http.get<{ transactions: Array<CreditTransaction>, allowances: Array<AllowanceTransaction>}>(`/api/credit-transactions/users/${userId}`);
+    return this.http.get<{ transactions: Array<CreditTransaction>, allowances: Array<AllowanceTransaction>}>(`/credit-transactions/users/${userId}`);
   }
 
   setUserCredits(userId: string, amount: number, notes: string) {
-    return this.http.post<CreditTransaction>('/api/credit-transactions', { user: userId, amount, notes })
+    return this.http.post<CreditTransaction>('/credit-transactions', { user: userId, amount, notes })
   }
 
   createAllowance(body) {
-    return this.http.post<Array<AllowanceTransaction>>('/api/credit-transactions/allowances', body);
+    return this.http.post<Array<AllowanceTransaction>>('/credit-transactions/allowances', body);
   }
 
   updateAllowance(allowanceId, body) {
-    return this.http.put<AllowanceTransaction>(`/api/credit-transactions/allowances/${allowanceId}`, body);
+    return this.http.put<AllowanceTransaction>(`/credit-transactions/allowances/${allowanceId}`, body);
   }
 
   deleteAllowance(allowanceId) {

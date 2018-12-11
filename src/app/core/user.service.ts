@@ -6,7 +6,7 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class UserService {
 
-  endpoint = '/api/users';
+  endpoint = '/users';
 
   constructor(
     private http: HttpClient,
