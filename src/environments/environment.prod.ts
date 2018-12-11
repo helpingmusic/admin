@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  domain: 'https://my.evolvemusic.org',
+  domain: 'https://api.evolvemusic.org',
 };
