@@ -17,7 +17,7 @@ export class UserService {
   }
 
   getById(id: string) {
-    return this.http.get<User>(`${this.endpoint}/adminGet/${id}`);
+    return this.http.get<User>(`${this.endpoint}/${id}`);
   }
 
 }

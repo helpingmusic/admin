@@ -26,7 +26,7 @@ export class CreditService {
   }
 
   deleteAllowance(allowanceId) {
-    return this.updateAllowance(allowanceId, { status: 'cancelled' });
+    return this.http.delete<AllowanceTransaction>(`/credit-transactions/allowances/${allowanceId}`);
   }
 
 }

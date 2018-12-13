@@ -26,16 +26,18 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginForm.valueChanges
+      .subscribe(() => this.clearServerErrors());
   }
 
   clearServerErrors() {
     if (this.loginForm.get('email').hasError('server')) {
-      this.loginForm.get('email').setErrors(null);
+      this.loginForm.get('email').setErrors({});
+      this.loginForm.get('email').updateValueAndValidity();
     }
   }
 
   onSubmit(form: FormGroup) {
-
     if (form.invalid) return false;
     this.isLoading = true;
 
@@ -45,10 +47,12 @@ export class LoginComponent implements OnInit {
         () => {
           this.router.navigateByUrl('/');
         },
-        err => {
-          console.error(err);
+        res => {
+          console.error(res);
           this.isLoading = false;
-          this.loginForm.get('email').setErrors({ server: err.error.message });
+          this.loginForm.get('email').setErrors({
+            server: res.error.message || 'Invalid Login',
+          });
         },
       )
 

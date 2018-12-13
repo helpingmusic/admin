@@ -59,7 +59,7 @@
 
     <ng-container matColumnDef="tier">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Subscription</mat-header-cell>
-      <mat-cell *matCellDef="let user" class="is-capitalized"> {{ user.stripe?.tier }} ({{ user.stripe?.frequency }}) </mat-cell>
+      <mat-cell *matCellDef="let user" class="is-capitalized"> {{ user.stripe?.tier }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="active_until">
