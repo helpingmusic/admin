@@ -15,7 +15,7 @@
     </mat-form-field>
   </div>
 
-  <mat-table #table [dataSource]="usersData" matSort>
+  <mat-table #table [dataSource]="usersData" matSort matSortActive="created_at" matSortDirection="desc">
 
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
@@ -68,7 +68,7 @@
     </ng-container>
 
     <ng-container matColumnDef="created_at">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Joined On</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">Joined On</mat-header-cell>
       <mat-cell *matCellDef="let user"> {{ user.created_at | date:"mediumDate" }} </mat-cell>
     </ng-container>
 
